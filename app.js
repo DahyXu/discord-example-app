@@ -21,6 +21,15 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 const activeGames = {};
 
 /**
+ * test web service is ok?
+ */
+
+app.get('/test', async function (req, res) {
+  res.send('ok');
+}
+);
+
+/**
  * Interactions endpoint URL where Discord will send HTTP requests
  */
 app.post('/interactions', async function (req, res) {
