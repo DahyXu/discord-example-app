@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "module": "es2020",
+      "outDir": "dist",
+      "strict": false,
+      "moduleResolution": "nodenext",
+      "allowJs": true
+    },
+    "include": [
+      "**/*"
+    ],
+    "exclude": [
+        "examples/**/*",
+        "dist/**/*"
+    ]
+}
+  
