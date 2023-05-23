@@ -2,7 +2,7 @@ import { Events } from 'discord.js'
 
  const rawEvent = {
 	name: Events.Raw,
-	execute(packet) {
+	execute(packet: { t: any; }) {
 		  // 确保只处理事件类型
           if (!packet.t) return;
 
