@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url';
 import * as path from 'path'
 import {readdirSync} from 'fs'
 import 'dotenv/config';
+import { TextChannel } from 'discord.js';
 
 export default class DiscordClient extends Client {
     public commands : Collection<string, any>;
@@ -47,5 +48,15 @@ export default class DiscordClient extends Client {
                 this.on(event.name, (...args) => event.execute(...args));
             }
         }
+    }
+
+    public callMJ(prompt : string) {
+        console.log(`mj image prompt:${prompt}`);
+        const channel = this.channels.cache.get('1087994103091961908') as TextChannel;
+        channel.send({
+            content: prompt,
+            allowedMentions: { users: ['936929561302675456'] },
+        });
+        
     }
 }
