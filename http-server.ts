@@ -1,6 +1,6 @@
 import express, { Request, Response, Application  } from 'express';
 import DiscordClient from './discord-client.js';
-import imagine from './mjreq.js';
+
 
 
 export default class HttpServerByExpress{
@@ -13,11 +13,11 @@ export default class HttpServerByExpress{
     }
 
     public async addEvents() {
-        this.app.get('/mj/image', (req: Request, res: Response) => {
+        this.app.get('/mj/image', async (req: Request, res: Response) => {
             const prompt:string = req.query.prompt as string;
             
-            imagine(prompt);
-            res.json({ message: 'image', prompt });
+            const url = await this.client.callMJ(prompt);
+            res.send(url);
           });
           
         this.app.post('/api/users', (req: Request, res: Response) => {

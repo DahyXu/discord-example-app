@@ -5,7 +5,7 @@ import HttpServerByExpress from './http-server.js';
 import 'dotenv/config';
 
 // Create a new client instance
-const client = new DiscordClient({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
+const client = new DiscordClient({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 client.loadCommand();
 client.loadEvents();
 // Log in to Discord with your client's token

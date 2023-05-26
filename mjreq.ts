@@ -24,7 +24,7 @@ function buildBasePayload(): Record<string, any> {
     };
 }
 
-export default async function imagine(prompt: string): Promise<any> {
+export async function imagine(prompt: string): Promise<any> {
     const basePayload = buildBasePayload();
     const nonce = basePayload.nonce || mjRandomRef();
     const payload = {
@@ -75,8 +75,82 @@ export default async function imagine(prompt: string): Promise<any> {
     return response.data;
 }
 
+export async function logToDiscord(channel: any, s: string) {
+    await channel.send(`${LOG_PREFIX} ${s}`);
+}
+  
+export function upscale(index: number, message_id: string, message_hash: string) {
+    const payload = {
+      ...buildBasePayload(),
+      type: 3,
+      message_id: message_id,
+      data: {
+        component_type: 2,
+        custom_id: `MJ::JOB::upsample::${index}::${message_hash}`
+      }
+    };
+  
+    const header = {
+      authorization: process.env.IMPERSONATOR_TOKEN
+    };
+  
+    return axios.post(DISCORD_INTERACTIONS_URL, payload, { headers: header });
+  }
+  
+  function upscaleMax(message_id: string, message_hash: string) {
+    const payload = {
+      ...buildBasePayload(),
+      type: 3,
+      message_id: message_id,
+      data: {
+        component_type: 2,
+        custom_id: `MJ::JOB::upsample_max::1::${message_hash}::SOLO`
+      }
+    };
+  
+    const header = {
+      authorization: process.env.IMPERSONATOR_TOKEN
+    };
+  
+    return axios.post(DISCORD_INTERACTIONS_URL, payload, { headers: header });
+  }
+  
+  function reroll(message_id: string, message_hash: string) {
+    const payload = {
+      ...buildBasePayload(),
+      type: 3,
+      message_id: message_id,
+      data: {
+        component_type: 2,
+        custom_id: `MJ::JOB::reroll::0::${message_hash}::SOLO`
+      }
+    };
+  
+    const header = {
+      authorization: process.env.IMPERSONATOR_TOKEN
+    };
+  
+    return axios.post(DISCORD_INTERACTIONS_URL, payload, { headers: header });
+  }
+  
+  function variate(index: number, message_id: string, message_hash: string) {
+    const payload = {
+      ...buildBasePayload(),
+      type: 3,
+      message_id: message_id,
+      data: {
+        component_type: 2,
+        custom_id: `MJ::JOB::variation::${index}::${message_hash}`
+      }
+    };
+  
+    const header = {
+      authorization: process.env.IMPERSONATOR_TOKEN
+    };
+  
+    return axios.post(DISCORD_INTERACTIONS_URL, payload, { headers: header });
+  }
+  
 
-  
-  
   
   

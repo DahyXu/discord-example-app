@@ -5,7 +5,7 @@ import DiscordClient from '../discord-client.js'
 	name: Events.MessageCreate,
 	async execute(msg:Message) {
 		console.log('msg created!');
-		//console.log(msg);
+		console.log(msg);
 		if ( !(msg.client instanceof DiscordClient) ) return;
         
 	},
