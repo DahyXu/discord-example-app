@@ -1,8 +1,9 @@
 import { Events } from 'discord.js'
+import MJReq from '../mjreq.js';
 
  const rawEvent = {
 	name: Events.Raw,
-	execute(packet: { t: any; }) {
+	execute(packet: { t: any; }, mjReq:MJReq) {
 		  // 确保只处理事件类型
           if (!packet.t) return;
 

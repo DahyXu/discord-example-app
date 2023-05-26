@@ -1,9 +1,10 @@
 import { Events, Interaction } from 'discord.js'
 import DiscordClient from '../discord-client.js'
+import MJReq from '../mjreq.js';
 
  const interactionEvent = {
 	name: Events.InteractionCreate,
-	async execute(interaction:Interaction) {
+	async execute(interaction:Interaction, mjReq:MJReq) {
 		if (!interaction.isChatInputCommand()) return;
 
 		if ( !(interaction.client instanceof DiscordClient) ) return;

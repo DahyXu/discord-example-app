@@ -1,6 +1,7 @@
 import * as uuid from 'uuid';
 import axios from 'axios';
 import 'dotenv/config';
+import { EventEmitter } from 'events';
 
 const DISCORD_INTERACTIONS_URL="https://discord.com/api/v9/interactions"
 const INPUT_TICKET_PREFIX = "@MJR"
@@ -95,62 +96,79 @@ export function upscale(index: number, message_id: string, message_hash: string)
     };
   
     return axios.post(DISCORD_INTERACTIONS_URL, payload, { headers: header });
-  }
+}
   
-  function upscaleMax(message_id: string, message_hash: string) {
-    const payload = {
-      ...buildBasePayload(),
-      type: 3,
-      message_id: message_id,
-      data: {
-        component_type: 2,
-        custom_id: `MJ::JOB::upsample_max::1::${message_hash}::SOLO`
-      }
-    };
-  
-    const header = {
-      authorization: process.env.IMPERSONATOR_TOKEN
-    };
-  
-    return axios.post(DISCORD_INTERACTIONS_URL, payload, { headers: header });
-  }
-  
-  function reroll(message_id: string, message_hash: string) {
-    const payload = {
-      ...buildBasePayload(),
-      type: 3,
-      message_id: message_id,
-      data: {
-        component_type: 2,
-        custom_id: `MJ::JOB::reroll::0::${message_hash}::SOLO`
-      }
-    };
-  
-    const header = {
-      authorization: process.env.IMPERSONATOR_TOKEN
-    };
-  
-    return axios.post(DISCORD_INTERACTIONS_URL, payload, { headers: header });
-  }
-  
-  function variate(index: number, message_id: string, message_hash: string) {
-    const payload = {
-      ...buildBasePayload(),
-      type: 3,
-      message_id: message_id,
-      data: {
-        component_type: 2,
-        custom_id: `MJ::JOB::variation::${index}::${message_hash}`
-      }
-    };
-  
-    const header = {
-      authorization: process.env.IMPERSONATOR_TOKEN
-    };
-  
-    return axios.post(DISCORD_INTERACTIONS_URL, payload, { headers: header });
-  }
-  
+function upscaleMax(message_id: string, message_hash: string) {
+  const payload = {
+    ...buildBasePayload(),
+    type: 3,
+    message_id: message_id,
+    data: {
+      component_type: 2,
+      custom_id: `MJ::JOB::upsample_max::1::${message_hash}::SOLO`
+    }
+  };
 
+  const header = {
+    authorization: process.env.IMPERSONATOR_TOKEN
+  };
+
+  return axios.post(DISCORD_INTERACTIONS_URL, payload, { headers: header });
+}
+
+function reroll(message_id: string, message_hash: string) {
+  const payload = {
+    ...buildBasePayload(),
+    type: 3,
+    message_id: message_id,
+    data: {
+      component_type: 2,
+      custom_id: `MJ::JOB::reroll::0::${message_hash}::SOLO`
+    }
+  };
+
+  const header = {
+    authorization: process.env.IMPERSONATOR_TOKEN
+  };
+
+  return axios.post(DISCORD_INTERACTIONS_URL, payload, { headers: header });
+}
+
+function variate(index: number, message_id: string, message_hash: string) {
+  const payload = {
+    ...buildBasePayload(),
+    type: 3,
+    message_id: message_id,
+    data: {
+      component_type: 2,
+      custom_id: `MJ::JOB::variation::${index}::${message_hash}`
+    }
+  };
+
+  const header = {
+    authorization: process.env.IMPERSONATOR_TOKEN
+  };
+
+  return axios.post(DISCORD_INTERACTIONS_URL, payload, { headers: header });
+}
+  
+export default class MJReq extends EventEmitter {
+  
+  constructor(){
+    super();
+  }
+
+  public imagine(prompt:string){
+    imagine(prompt);
+  }
+
+  public onImagineRes(result:string){
+
+    let ret:boolean = true;
+    let url:string = "";
+    
+    this.emit('onImagineRes', ret, url);
+  }
+} 
   
   
