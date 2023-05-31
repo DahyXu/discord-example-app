@@ -15,4 +15,4 @@ console.log('Discord client is ok!');
 
 const server = new HttpServerByExpress(client);
 server.addEvents();
-server.listen(5000);
+server.listen(3000);

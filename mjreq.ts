@@ -162,12 +162,25 @@ export default class MJReq extends EventEmitter {
     imagine(prompt);
   }
 
-  public onImagineRes(result:string){
+  public onImagineRes(result:string|undefined){
 
     let ret:boolean = true;
     let url:string = "";
-    
+
+    if ( result === undefined){
+      ret = false;
+      url = "error";
+    }
+    else if(result.startsWith('http')){
+      ret = true;
+      url = result;
+    }
+    else{
+      ret = false;
+      url = `something error:${result}`;
+    }
     this.emit('onImagineRes', ret, url);
+    
   }
 } 
   

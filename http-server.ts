@@ -15,8 +15,15 @@ export default class HttpServerByExpress{
     public async addEvents() {
         this.app.get('/mj/image', async (req: Request, res: Response) => {
             const prompt:string = req.query.prompt as string;
-            
-            const url = await this.client.callMJ(prompt);
+            let url:string;
+            try{
+                url = await this.client.callMJ(prompt);
+            }
+            catch(error){
+                url = 'Error';
+                console.log('fetch image timeout.')
+            }
+            console.log('url result is ' + url);
             res.send(url);
           });
           

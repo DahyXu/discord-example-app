@@ -55,7 +55,7 @@ export default class DiscordClient extends Client {
 
     public async callMJ(prompt : string) : Promise<string> {
         return new Promise((resolve, reject)=>{
-            const timeout = 20000; // 20秒超时
+            const timeout = 100000; // 20秒超时
 
             // 创建超时的 Promise
             const timeoutPromise = new Promise<string>((_, reject) => {
@@ -65,7 +65,7 @@ export default class DiscordClient extends Client {
             });
         
 
-                // 创建处理结果的 Promise
+            // 创建处理结果的 Promise
             const resultPromise = new Promise<string>((resolve, reject) => {
                 this.mjReq.imagine(prompt);
                 this.mjReq.on('onImagineRes', (ret: boolean, url: string) => {
