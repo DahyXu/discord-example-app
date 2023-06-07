@@ -2,12 +2,12 @@
   "name": "getting-started",
   "version": "1.0.0",
   "description": "Discord example app",
-  "main": "app.js",
+  "main": "discord.js",
   "type": "module",
   "scripts": {
-    "start": "node ./dist/app.js",
+    "start": "node ./dist/discord.js",
     "register": "node commands.js",
-    "dev": "nodemon app.js",
+    "dev": "nodemon discord.js",
     "tsc": "tsc",
     "discord-start": "tsc && node ./dist/discord.js",
     "discord-deploy": "tsc && node ./dist/deploy-commands.js"

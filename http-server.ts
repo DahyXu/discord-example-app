@@ -27,10 +27,6 @@ export default class HttpServerByExpress{
             res.send(url);
           });
           
-        this.app.post('/api/users', (req: Request, res: Response) => {
-            const user = req.body;
-            res.json({ message: 'User created', user });
-          });
     }
 
     public async listen(port:number){
